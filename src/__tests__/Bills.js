@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
 import { bills } from "../fixtures/bills.js"
+import LoadingPage from "../views/LoadingPage.js"
+import ErrorPage from "../views/ErrorPage.js"
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
@@ -16,6 +18,23 @@ describe("Given I am connected as an employee", () => {
       const antiChrono = (a, b) => ((a < b) ? 1 : -1)
       const datesSorted = [...dates].sort(antiChrono)
       expect(dates).toEqual(datesSorted)
+    })
+  })
+})
+
+describe("Given an employee enter his email and his pwd", () => {
+  describe("When user press employee-login-button", () => {
+    test("Then billed page loading", () => {
+      const loading = true
+      const html = BillsUI({ loading })
+      document.body.innerHTML = html
+      expect(LoadingPage()).toBeTruthy()
+    })
+    test("Then billed error page loading", () => {
+      const error = true
+      const html = BillsUI({ error })
+      document.body.innerHTML = html
+      expect(ErrorPage()).toBeTruthy()
     })
   })
 })
