@@ -3,15 +3,13 @@ import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 import { localStorageMock } from "../__mocks__/localStorage.js"
 import { ROUTES } from "../constants/routes.js"
+import firebase from "../__mocks__/firebase.js"
+
+//container/NewBill - code coverage 80% ****************************
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
-    test("Then I choose a file, it should be .jpg .jpeg .png", () => {
-      // Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-      // window.localStorage.setItem('user', JSON.stringify({
-      //   type: 'Employee'
-      // }))
-
+    test("Then I choose a non required file", () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
       }
@@ -41,7 +39,7 @@ describe("Given I am connected as an employee", () => {
       expect(btnDisable.disabled).toBeTruthy()
     })
 
-    test("Then I choose a file, it should be .jpg .jpeg .png", () => {
+    test("Then I choose a require file", () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
       }
@@ -72,36 +70,8 @@ describe("Given I am connected as an employee", () => {
       expect(btnDisable.disabled).not.toBeTruthy()
     })
 
-    test("Then I submit new bill", () => {
+    test("Then I choose a require file", () => {
       document.body.innerHTML = NewBillUI()
-
-      const type = screen.getByTestId("expense-type")
-      fireEvent.change(type, { target: { value: "Transports" } })
-      expect(type.value).toBe("Transports")
-
-      const name = screen.getByTestId("expense-name")
-      fireEvent.change(name, { target: { value: "azerty" } })
-      expect(name.value).toBe("azerty")
-
-      const amount = screen.getByTestId("amount")
-      fireEvent.change(amount, { target: { value: "250" } })
-      expect(amount.value).toBe("250")
-
-      const datepicker = screen.getByTestId("datepicker")
-      fireEvent.change(datepicker, { target: { value: "2021-07-01" } })
-      expect(datepicker.value).toBe("2021-07-01")
-
-      const vat = screen.getByTestId("vat")
-      fireEvent.change(vat, { target: { value: "70" } })
-      expect(vat.value).toBe("70")
-
-      const pct = screen.getByTestId("pct")
-      fireEvent.change(pct, { target: { value: "20" } })
-      expect(pct.value).toBe("20")
-
-      const commentary = screen.getByTestId("commentary")
-      fireEvent.change(commentary, { target: { value: "azerty" } })
-      expect(commentary.value).toBe("azerty")
       
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
 
@@ -125,15 +95,13 @@ describe("Given I am connected as an employee", () => {
   })
 })
 
-//container/NewBill - code coverage 80% ****************************
+// test d'intégration POST new bill *********************************
 
-
-// test d'intégration POST new bill
-describe("Given I am a user connected as Admin", () => {
+describe("Given I am a user connected as Employee", () => {
   describe("When I navigate to Dashboard", () => {
-    test("fetches bills from mock API GET", async () => {
+    test("Send new bill in mock API POST", async () => {
       //  const getSpy = jest.spyOn(firebase, "get")
-      //  const bills = await firebase.get()
+      //  const bills = await firebase.post()
       //  expect(getSpy).toHaveBeenCalledTimes(1)
       //  expect(bills.data.length).toBe(4)
     })
