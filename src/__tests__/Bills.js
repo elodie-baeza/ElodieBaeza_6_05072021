@@ -81,6 +81,11 @@ describe("Given I am a user connected as Employee", () => {
         document, onNavigate, firestore: null, localStorage: window.localStorage
       })
 
+      jQuery.fn.extend({
+        modal: function() {
+        },
+      });
+
       const iconEye = screen.queryAllByTestId("icon-eye")
       const handleClickIconEye = jest.fn(e => newBills.handleClickIconEye)
       iconEye[0].addEventListener('click', handleClickIconEye)
