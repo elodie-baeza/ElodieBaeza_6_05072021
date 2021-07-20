@@ -1,4 +1,3 @@
-
 import { ROUTES_PATH } from '../constants/routes.js'
 import Logout from "./Logout.js"
 
@@ -20,7 +19,8 @@ export default class NewBill {
     const filePath = e.target.files[0].name.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     if (fileName.split('.').pop().toUpperCase() == ('JPG' || 'JPEG' || 'PNG') && file.type.includes('image')) {
-      this.firestore
+      if (this.firestore) {
+        this.firestore
         .storage
         .ref(`justificatifs/${fileName}`)
         .put(file)
@@ -29,12 +29,14 @@ export default class NewBill {
           this.fileUrl = url
           this.fileName = fileName
         })
-        document.getElementById("btn-send-bill").disabled = false;
+      }
+      document.getElementById("btn-send-bill").disabled = false;
     } else {
       document.getElementById("btn-send-bill").disabled = true;
       alert ('Les format de fichier autorisés sont .jpg, .jpeg, .png')
     }
   }
+
   handleSubmit = e => {
     e.preventDefault()
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
