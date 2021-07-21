@@ -1,9 +1,21 @@
-import { data } from "jquery"
-
 export default {
   get: () => {
     return Promise.resolve({
       data: [{
+        "id": "qcCK3SzECmaZAGRrHjaC",
+        'email':  'toto@test',
+        'type': 'Transports',
+        'name':  '',
+        'amount': 50,
+        'date':  '2021-07-19',
+        'vat': '',
+        'pct': 20,
+        'commentary': '',
+        'fileUrl': '',
+        'fileName': 'hello.png',
+        'status': 'pending',
+      },
+      {
         "id": "47qAXb6fIm2zOKkLzMro",
         "vat": "80",
         "fileUrl": "https://firebasestorage.googleapis.com/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=c1640e12-a24b-4b11-ae52-529112e9602a",
@@ -65,21 +77,9 @@ export default {
       }]
     })
   },
-  post: () => {
+  post: (data) => {
     return Promise.resolve({
-      data: [{
-        'email':  'toto@test',
-        'type': 'Transports',
-        'name':  '',
-        'amount': 50,
-        'date':  '2021-07-19',
-        'vat': '',
-        'pct': 20,
-        'commentary': '',
-        'fileUrl': '',
-        'fileName': 'hello.png',
-        'status': 'pending'
-      }]
+      "id": "qcCK3SzECmaZAGRrHjaC",
     })
   }
 }
