@@ -17,6 +17,7 @@ describe("Given I am connected as an employee", () => {
 
       const html = NewBillUI()
       document.body.innerHTML = html
+      window.alert = jest.fn()
 
       const newBill = new NewBill({ 
         document, 
@@ -53,7 +54,6 @@ describe("Given I am connected as an employee", () => {
         firestore: null, 
         localStorage: window.localStorage
       })
-      // const callFirestore = jest.fn(newBill.callFirestore)
       
       const file = screen.getByTestId('file')
       const handleChangeFile = jest.fn(newBill.handleChangeFile)
