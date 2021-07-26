@@ -16,7 +16,7 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-    const filePath = e.target.files[0].name.split(/\\/g)
+    const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     if (fileName.split('.').pop().toUpperCase() == ('JPG' || 'JPEG' || 'PNG') && file.type.includes('image')) {
       if (this.firestore) {
