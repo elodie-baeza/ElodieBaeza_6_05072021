@@ -16,21 +16,11 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-    const filePath = e.target.value.split(/\\/g)
+    const filePath = e.target.files[0].name.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     if (fileName.split('.').pop().toUpperCase() == ('JPG' || 'JPEG' || 'PNG') && file.type.includes('image')) {
-      if (this.firestore) {
-        this.firestore
-        .storage
-        .ref(`justificatifs/${fileName}`)
-        .put(file)
-        .then(snapshot => snapshot.ref.getDownloadURL())
-        .then(url => {
-          this.fileUrl = url
-          this.fileName = fileName
-        })
-      }
       document.getElementById("btn-send-bill").disabled = false;
+      this.setFile(file, fileName)
     } else {
       document.getElementById("btn-send-bill").disabled = true;
       alert ('Les format de fichier autorisés sont .jpg, .jpeg, .png')
@@ -68,6 +58,19 @@ export default class NewBill {
         this.onNavigate(ROUTES_PATH['Bills'])
       })
       .catch(error => error)
+    }
+  }
+  setFile(file, fileName) {
+    if (this.firestore) {
+      this.firestore
+      .storage
+      .ref(`justificatifs/${fileName}`)
+      .put(file)
+      .then(snapshot => snapshot.ref.getDownloadURL())
+      .then(url => {
+        this.fileUrl = url
+        this.fileName = fileName
+      })
     }
   }
 }
