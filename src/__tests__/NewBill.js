@@ -55,14 +55,16 @@ describe("Given I am connected as an employee", () => {
         localStorage: window.localStorage
       })
       
-      const file = screen.getByTestId('file')
+      const inputIdFile = screen.getByTestId('file')
+      const file = [new File([''], 'chucknorris.jpg', {type: 'image/jpg'})]
+      Object.defineProperty(inputIdFile, 'value', {
+        value: "C:\\fakepath\\chucknorris.jpg"
+      })
       const handleChangeFile = jest.fn(newBill.handleChangeFile)
-      file.addEventListener('change', handleChangeFile)
-      fireEvent.change(file, { 
+      inputIdFile.addEventListener('change', handleChangeFile)
+      fireEvent.change(inputIdFile, { 
         target: {
-          files: [new File([''], 'chucknorris.jpg', {
-            type: 'image/jpg'
-          })],
+          files: file,
         }
       })
       expect(handleChangeFile).toHaveBeenCalled()
